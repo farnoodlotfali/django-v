@@ -11,7 +11,7 @@ from .models import (
     TakeProfitTarget,
     SettingConfig,
     PositionSide,
-    MarginMode
+    MarginMode 
 )
 
 admin.site.register(Channel)
