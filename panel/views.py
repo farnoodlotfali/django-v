@@ -2,17 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 # Create your views here.
 from .classes.FeyzianMsg import FeyzianMsg
-from dotenv import dotenv_values
 from telethon.sync import TelegramClient, events
 from telethon.tl.types import Message, PeerChannel
 from .models import Post
+from dotenv import load_dotenv
+import os
 
-config = dotenv_values(".env")
-
-api_id = config["api_id"]
-api_hash = config["api_hash"]
-
-username = config["username"]
+load_dotenv()
 
 def home(request):
     symbols = User.objects.all()
@@ -23,7 +19,7 @@ def home(request):
 
 
 async def get_user_posts_view(request):
-    async with TelegramClient(username, api_id, api_hash) as client:
+    async with TelegramClient( os.getenv("username"), os.getenv("api_id"),  os.getenv("api_hash")) as client:
 
         async def handle_new_message(event):
             # try:
@@ -51,8 +47,8 @@ async def get_user_posts_view(request):
             handle_new_message,
             events.NewMessage(
                 chats=[
-                    PeerChannel(int(config["CHANNEL_FEYZ"])),
-                    PeerChannel(int(config["CHANNEL_TEST_FEYZIAN"])),
+                    PeerChannel(int( os.getenv("CHANNEL_FEYZ"))),
+                    PeerChannel(int( os.getenv("CHANNEL_TEST_FEYZIAN"))),
 
                     # PeerChannel(int(config["CHANNEL_ALI_BEY"])),
                     # PeerChannel(int(config["CHANNEL_TEST_ALI_BEYRANVAND"])),
@@ -91,8 +87,8 @@ async def channelTestFeyzian(msg):
 
 
 options = {
-    int(config["CHANNEL_FEYZ"]): channelTestFeyzian,
-    int(config["CHANNEL_TEST_FEYZIAN"]): channelTestFeyzian,
+    int( os.getenv("CHANNEL_FEYZ")): channelTestFeyzian,
+    int( os.getenv("CHANNEL_TEST_FEYZIAN")): channelTestFeyzian,
 
     # int(config["CHANNEL_ALI_BEY"]): channelTestAliBeyro,
     # int(config["CHANNEL_TEST_ALI_BEYRANVAND"]): channelTestAliBeyro,
