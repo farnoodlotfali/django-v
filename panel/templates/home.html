@@ -91,6 +91,91 @@
       </div>
     </table>
 
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Channel id</th>
+          <th scope="col">Is Predict Msg</th>
+          <th scope="col">Msg id</th>
+          <th scope="col">Msg</th>
+          <th scope="col">Date</th>
+          <th scope="col">Edit date</th>
+          <th scope="col">Reply to msg id</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <th>
+            <!-- Id -->
+            {{post.id}}
+          </th>
+          <th>
+            <!-- channel_id -->
+            <a
+              class="nav-link"
+              >{{ post.channel.channel_id}}</a
+            >
+          </th>
+          <th>
+            <!-- is_predict_msg -->
+            {% if post.is_predict_msg %}
+            <!-- true -->
+            <i class="fas fa-check-square text-success"></i>
+            {% else %}
+            <i class="fas fa-times text-danger"></i>
+            {% endif %}
+          </th>
+          <th>
+            <!-- message_id -->
+            {{post.message_id}}
+          </th>
+          <th>
+            <!-- message -->
+            {{post.message}}
+          </th>
+          <th>
+            <!-- date -->
+            {{post.date}}
+          </th>
+          <th>
+            {% if post.edit_date %}
+            <!-- edit_date -->
+            {{ post.edit_date }}
+            <!-- else -->
+            {% else %} _ {% endif %}
+          </th>
+          <th>
+            {% if post.reply_to_msg_id %}
+            <!-- reply_to_msg_id -->
+            {{ post.reply_to_msg_id }}
+            <!-- else -->
+            {% else %} _ {% endif %}
+          </th>
+          <th>
+            <!-- actions -->
+          </th>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Channel id</th>
+          <th scope="col">Msg id</th>
+          <th scope="col">Msg</th>
+          <th scope="col">Date</th>
+          <th scope="col">Edit date</th>
+          <th scope="col">Reply to msg id</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </tfoot>
+    </table>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
